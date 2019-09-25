@@ -1,12 +1,10 @@
 const score = document.querySelector('.score'),
     start = document.querySelector('.start'),
     gameArea = document.querySelector('.gameArea'),
-    car = document.createElement('div');
+    car = document.createElement('div'),
+    best = document.querySelector('.best');
     
 car.classList.add('car');
-
-
-    
 start.addEventListener('click',startGame);
     
 document.addEventListener('keydown',startRun);
@@ -22,6 +20,7 @@ const keys={
 const setting = {
     start:false,
     score:0,
+    best:0,
     speed:3,
     traffic:3
 };
@@ -100,6 +99,11 @@ function playGame(){
       if(setting.start){
         setting.score+=setting.speed;
         score.innerHTML='Score<br>'+setting.score;
+        if (setting.best<setting.score){
+            setting.best = setting.score;
+        }
+        best.innerHTML ='BEST<br>'+setting.best;
+        score.style.top = best.offsetHeight;
         moveRoad();
         moveEnemy();
         if(keys.ArrowLeft && setting.x > 0){
